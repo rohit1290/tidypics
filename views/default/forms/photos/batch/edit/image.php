@@ -9,6 +9,7 @@
  */
 
 $image = $vars['entity'];
+$title = $image->title;
 
 $content = elgg_format_element('div', ['class' => 'elgg-image'], elgg_view_entity_icon($image, 'small', ['href' => false]));
 

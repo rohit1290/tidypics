@@ -52,7 +52,7 @@ class TidypicsWatermark {
 		}
 
 		// plugins can do their own watermark and return false to prevent this function from running
-		if (elgg_trigger_plugin_hook('tp_watermark', 'gd', $image, true) === false) {
+		if (elgg_trigger_event_results('tp_watermark', 'gd', $image, true) === false) {
 			return;
 		}
 
@@ -94,7 +94,7 @@ class TidypicsWatermark {
 		}
 
 		// plugins can do their own watermark and return false to prevent this function from running
-		if (elgg_trigger_plugin_hook('tp_watermark', 'imagick', $filename, true) === false) {
+		if (elgg_trigger_event_results('tp_watermark', 'imagick', $filename, true) === false) {
 			return true;
 		}
 
@@ -138,7 +138,7 @@ class TidypicsWatermark {
 		}
 
 		// plugins can do their own watermark and return false to prevent this function from running
-		if (elgg_trigger_plugin_hook('tp_watermark', 'imagemagick', $filename, true) === false) {
+		if (elgg_trigger_event_results('tp_watermark', 'imagemagick', $filename, true) === false) {
 			return;
 		}
 

@@ -202,10 +202,6 @@ class TidypicsEvents {
 
 	/**
 	* Tabs for siteimages
-	*
-	* @param \Elgg\Event $event "register", "menu:filter:tidypics_siteimages_tabs"
-	*
-	* @return ElggMenuItem[]
 	*/
 	public static function tidypics_setup_tabs(\Elgg\Event $event) {
 		$result = $event->getValue();

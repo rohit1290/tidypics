@@ -3,7 +3,7 @@
  * Group images module
  */
 
-elgg_require_js('tidypics/tidypics');
+elgg_import_esm('tidypics/internaljs/tidypics');
 
 $group = elgg_extract('entity', $vars);
 if (!($group instanceof \ElggGroup)) {
@@ -12,7 +12,7 @@ if (!($group instanceof \ElggGroup)) {
 
 if (!$group->isToolEnabled('tp_images')) {
 	return;
-} 
+}
 
 $group_guid = $group->getGUID();
 
@@ -30,7 +30,8 @@ if (TidypicsTidypics::tidypics_can_add_new_photos(null, $group)) {
 		'href' => "ajax/view/photos/selectalbum?owner_guid=" . $group_guid,
 		'text' => elgg_echo("photos:addphotos"),
 		'class' => 'elgg-lightbox',
-		'link_class' => 'tidypics-selectalbum-lightbox',
+		'link_class' => 'tidypics-selectalbum-lightbox elgg-lightbox',
+		'class' => 'elgg-lightbox',
 		'is_trusted' => true,
 	]);
 }

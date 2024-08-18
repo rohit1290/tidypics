@@ -6,7 +6,7 @@
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2
  */
 
-elgg_require_js('tidypics/tidypics');
+elgg_import_esm('tidypics/internaljs/tidypics');
 
 $item = elgg_extract('item', $vars);
 if (!($item instanceof ElggRiverItem)) {
@@ -31,7 +31,8 @@ if ($album_river_view == "set") {
 				'href' => 'ajax/view/photos/riverpopup?guid=' . $image->getGUID(),
 				'title' => $image->title,
 				'img_class' => 'tidypics-photo',
-				'link_class' => 'tidypics-river-lightbox',
+				'link_class' => 'tidypics-river-lightbox elgg-lightbox',
+				'class' => 'elgg-lightbox',
 			]));
 		}
 		$vars['attachments'] = elgg_format_element('ul', ['class' => 'tidypics-river-list'], $attachments);
@@ -39,12 +40,13 @@ if ($album_river_view == "set") {
 } else {
 	$image = $album->getCoverImage();
 	if ($image) {
-		$vars['attachments'] = elgg_format_element('ul', ['class' => 'tidypics-river-list'], 
+		$vars['attachments'] = elgg_format_element('ul', ['class' => 'tidypics-river-list'],
 			elgg_format_element('li', ['class' => 'tidypics-photo-item'], elgg_view_entity_icon($image, $preview_size, [
 				'href' => 'ajax/view/photos/riverpopup?guid=' . $image->getGUID(),
 				'title' => $image->title,
 				'img_class' => 'tidypics-photo',
-				'link_class' => 'tidypics-river-lightbox',
+				'link_class' => 'tidypics-river-lightbox elgg-lightbox',
+				'class' => 'elgg-lightbox',
 			]))
 		);
 		

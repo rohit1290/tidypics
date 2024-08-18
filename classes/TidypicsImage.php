@@ -56,7 +56,7 @@ class TidypicsImage extends ElggFile {
 	 *
 	 * @return bool
 	 */
-	public function delete($follow_symlinks = true) : bool {
+	public function delete(bool $recursive = true, bool $persistent = null): bool {
 		// check if batch should be deleted
 		$batch = elgg_get_entities([
 			'relationship' => 'belongs_to_batch',
@@ -88,7 +88,7 @@ class TidypicsImage extends ElggFile {
 		$owner = $this->getOwnerEntity();
 		$owner->image_repo_size = (int)$owner->image_repo_size - $this->getSize();
 
-		return parent::delete($follow_symlinks);
+		return parent::delete($recursive, $persistent);
 	}
 
 	/**
@@ -109,7 +109,7 @@ class TidypicsImage extends ElggFile {
 	 *
 	 * @return string
 	 */
-	public function getURL() : string {
+	public function getURL(): string {
 		$title = elgg_get_friendly_title($this->getTitle());
 		$url = "photos/image/$this->guid/$title";
 		return elgg_normalize_url($url);
@@ -120,7 +120,16 @@ class TidypicsImage extends ElggFile {
 	 *
 	 * @return string
 	 */
-	public function getIconURL($size = 'small') : string {
+	public function getIconURL(string|array $params = []): string {
+		$size = 'small';
+		if (is_string($params)) {
+			$size = $params;
+		} else if (is_array($params)) {
+			if (isset($params['size'])) {
+				$size = $params['size'];
+			}
+		}
+		
 		if ($size == 'tiny') {
 			$size = 'thumb';
 		}

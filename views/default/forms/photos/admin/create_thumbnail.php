@@ -5,7 +5,7 @@
  * iionly@gmx.de
  */
 
-elgg_require_js('tidypics/create_thumbnail');
+elgg_import_esm('tidypics/internaljs/create_thumbnail');
 
 echo elgg_view_field([
 	'#type' => 'number',
@@ -20,7 +20,7 @@ echo '<div id="elgg-tidypics-im-results"></div>';
 
 $footer = elgg_view_field([
 	'#type' => 'submit',
-	'value' => elgg_echo('submit'),
+	'text' => elgg_echo('submit'),
 ]);
 
 elgg_set_form_footer($footer);

@@ -18,19 +18,19 @@ class TidypicsBootstrap extends DefaultPluginBootstrap {
 		elgg_register_ajax_view('photos/riverpopup');
 
 		// Register the JavaScript libs
-		elgg_define_js('jquery.plupload-tp', [
-			'deps' => ['elgg', 'jquery'],
-			'src' => elgg_get_simplecache_url('tidypics/js/plupload/plupload.full.min.js'),
-			'exports' => 'jQuery.plupload',
-		]);
-		elgg_define_js('jquery.plupload.ui-tp', [
-			'deps' => ['tidypics-jquery-ui/core', 'tidypics-jquery-ui/widget', 'tidypics-jquery-ui/widgets/button', 'tidypics-jquery-ui/widgets/progressbar', 'tidypics-jquery-ui/widgets/sortable', 'jquery.plupload-tp'],
-			'src' => elgg_get_simplecache_url('tidypics/js/plupload/jquery.ui.plupload/jquery.ui.plupload.min.js'),
-		]);
-		elgg_define_js('tidypics.imgareaselect', [
-			'deps' => ['elgg', 'jquery'],
-			'src' => elgg_get_simplecache_url('tidypics/js/jquery-imgareaselect.js'),
-		]);
+		elgg_register_esm('tidypics/plupload', elgg_get_simplecache_url('tidypics/js/plupload/plupload.full.min.js'));
+		elgg_register_esm('tidypics/plupload_ui', elgg_get_simplecache_url('tidypics/js/plupload/jquery.ui.plupload/jquery.ui.plupload.min.js'));
+		elgg_register_esm('tidypics/imgareaselect', elgg_get_simplecache_url('tidypics/js/jquery-imgareaselect.js'));
+		elgg_register_esm('tidypics/internaljs/broken_images', elgg_get_simplecache_url('tidypics/internaljs/broken_images.mjs'));
+		elgg_register_esm('tidypics/internaljs/create_thumbnail', elgg_get_simplecache_url('tidypics/internaljs/create_thumbnail.mjs'));
+		elgg_register_esm('tidypics/internaljs/galleria', elgg_get_simplecache_url('tidypics/internaljs/galleria.mjs'));
+		elgg_register_esm('tidypics/internaljs/imtest', elgg_get_simplecache_url('tidypics/internaljs/imtest.mjs'));
+		elgg_register_esm('tidypics/internaljs/resize_thumbnails', elgg_get_simplecache_url('tidypics/internaljs/resize_thumbnails.mjs'));
+		elgg_register_esm('tidypics/internaljs/slideshow', elgg_get_simplecache_url('tidypics/internaljs/slideshow.mjs'));
+		elgg_register_esm('tidypics/internaljs/tagging', elgg_get_simplecache_url('tidypics/internaljs/tagging.mjs'));
+		elgg_register_esm('tidypics/internaljs/tidypics', elgg_get_simplecache_url('tidypics/internaljs/tidypics.mjs'));
+		elgg_register_esm('tidypics/internaljs/tidypics_windows', elgg_get_simplecache_url('tidypics/internaljs/tidypics_windows.mjs'));
+		elgg_register_esm('tidypics/internaljs/uploading', elgg_get_simplecache_url('tidypics/internaljs/uploading.mjs'));
 	}
 
 	public function activate() {

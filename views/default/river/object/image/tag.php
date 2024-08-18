@@ -3,7 +3,7 @@
  * Image tag river view
  */
 
-elgg_require_js('tidypics/tidypics');
+elgg_import_esm('tidypics/internaljs/tidypics');
 
 $item = elgg_extract('item', $vars);
 if (!($item instanceof ElggRiverItem)) {
@@ -38,7 +38,8 @@ $vars['attachments'] = elgg_format_element('ul', ['class' => 'tidypics-river-lis
 		'href' => 'ajax/view/photos/riverpopup?guid=' . $image->getGUID(),
 		'title' => $image->title,
 		'img_class' => 'tidypics-photo',
-		'link_class' => 'tidypics-river-lightbox',
+		'link_class' => 'tidypics-river-lightbox elgg-lightbox',
+		'class' => 'elgg-lightbox',
 	]))
 );
 

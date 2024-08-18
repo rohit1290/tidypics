@@ -6,7 +6,7 @@
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2
  */
 
-elgg_require_js('tidypics/tidypics');
+elgg_import_esm('tidypics/internaljs/tidypics');
 
 $album_guid = (int) elgg_extract('guid', $vars);
 elgg_entity_gatekeeper($album_guid, 'object', TidypicsAlbum::SUBTYPE);
@@ -32,13 +32,14 @@ if (TidypicsTidypics::tidypics_can_add_new_photos(null, $owner)) {
 		'name' => 'addphotos',
 		'href' => "ajax/view/photos/selectalbum/?owner_guid=" . $owner->getGUID(),
 		'text' => elgg_echo("photos:addphotos"),
-		'link_class' => 'elgg-button elgg-button-action tidypics-selectalbum-lightbox',
+		'link_class' => 'elgg-button elgg-button-action tidypics-selectalbum-lightbox elgg-lightbox',
+		'class' => 'elgg-lightbox',
 	]);
 }
 
 // only show slideshow link if slideshow is enabled in plugin settings and there are images
 if (elgg_get_plugin_setting('slideshow', 'tidypics') && ($album->getSize() > 0)) {
-	elgg_require_js('tidypics/slideshow');
+	elgg_import_esm('tidypics/internaljs/slideshow');
 	$offset = (int) get_input('offset', 0);
 	$limit = (int) get_input('limit', 25);
 	elgg_register_menu_item('title', [
@@ -51,7 +52,8 @@ if (elgg_get_plugin_setting('slideshow', 'tidypics') && ($album->getSize() > 0))
 		'text' => '<i class="far fa-images"></i>',
 		'title' => elgg_echo('album:slideshow'),
 		'item_class' => 'tidypics-slideshow-button',
-		'link_class' => 'elgg-button elgg-button-action tidypics-slideshow-lightbox',
+		'link_class' => 'elgg-button elgg-button-action tidypics-slideshow-lightbox elgg-lightbox',
+		'class' => 'elgg-lightbox',
 		'priority' => 300,
 	]);
 }

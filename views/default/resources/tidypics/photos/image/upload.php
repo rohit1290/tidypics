@@ -41,7 +41,7 @@ if ($uploader == 'basic') {
 } else {
 	elgg_require_css('tidypics/css/jqueryui-smoothness');
 	elgg_require_css('tidypics/css/plupload/css/jquery.ui.plupload');
-	elgg_require_js('tidypics/uploading');
+	elgg_import_esm('tidypics/internaljs/uploading');
 	$content = elgg_view('forms/photos/ajax_upload', ['entity' => $album]);
 }
 

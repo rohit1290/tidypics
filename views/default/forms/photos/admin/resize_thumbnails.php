@@ -3,7 +3,7 @@
  * Re-create the thumbnails of all images
  */
 
-elgg_require_js('tidypics/resize_thumbnails');
+elgg_import_esm('tidypics/internaljs/resize_thumbnails');
 
 /* @var $count Integer */
 $count = elgg_extract('count', $vars);
@@ -26,7 +26,7 @@ echo elgg_format_element('ul', ['class' => 'mvl', 'id' => 'tidypics-resizethumbn
 
 $footer = elgg_view_field([
 	'#type' => 'submit',
-	'value' => elgg_echo('tidypics:settings:resize_thumbnails_start'),
+	'text' => elgg_echo('tidypics:settings:resize_thumbnails_start'),
 	'id' => 'tidypics-resizethumbnails-run',
 ]);
 

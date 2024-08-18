@@ -5,7 +5,7 @@
  * List all photos tagged with a user
  */
 
-elgg_require_js('tidypics/tidypics');
+elgg_import_esm('tidypics/internaljs/tidypics');
 
 // Get user guid (of logged in user, so everyone only gets the images their tagged in)
 $guid = elgg_get_logged_in_user_guid();
@@ -44,13 +44,14 @@ if (TidypicsTidypics::tidypics_can_add_new_photos(null, $user)) {
 		'name' => 'addphotos',
 		'href' => "ajax/view/photos/selectalbum/?owner_guid=" . $user->getGUID(),
 		'text' => elgg_echo("photos:addphotos"),
-		'link_class' => 'elgg-button elgg-button-action tidypics-selectalbum-lightbox',
+		'link_class' => 'elgg-button elgg-button-action tidypics-selectalbum-lightbox elgg-lightbox',
+		'class' => 'elgg-lightbox',
 	]);
 }
 
 // only show slideshow link if slideshow is enabled in plugin settings and there are images
 if (elgg_get_plugin_setting('slideshow', 'tidypics') && !empty($result)) {
-	elgg_require_js('tidypics/slideshow');
+	elgg_import_esm('tidypics/internaljs/slideshow');
 	elgg_register_menu_item('title', [
 		'name' => 'slideshow',
 		'id' => 'slideshow',
@@ -61,7 +62,8 @@ if (elgg_get_plugin_setting('slideshow', 'tidypics') && !empty($result)) {
 		'text' => '<i class="far fa-images"></i>',
 		'title' => elgg_echo('album:slideshow'),
 		'item_class' => 'tidypics-slideshow-button',
-		'link_class' => 'elgg-button elgg-button-action tidypics-slideshow-lightbox',
+		'link_class' => 'elgg-button elgg-button-action tidypics-selectalbum-lightbox elgg-lightbox',
+		'class' => 'elgg-lightbox',
 	]);
 }
 

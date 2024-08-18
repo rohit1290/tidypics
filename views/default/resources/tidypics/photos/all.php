@@ -6,9 +6,9 @@
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2
  */
 
-elgg_require_js('tidypics/tidypics');
+elgg_import_esm('tidypics/internaljs/tidypics');
 
-elgg_register_title_button('add', 'object', TidypicsAlbum::SUBTYPE);
+elgg_register_title_button('Add', 'add', 'object', TidypicsAlbum::SUBTYPE);
 
 elgg_push_collection_breadcrumbs('object', TidypicsAlbum::SUBTYPE);
 
@@ -38,7 +38,8 @@ if (TidypicsTidypics::tidypics_can_add_new_photos(null, $logged_in_user)) {
 		'name' => 'addphotos',
 		'href' => "ajax/view/photos/selectalbum/?owner_guid=" . $logged_in_user->getGUID(),
 		'text' => elgg_echo("photos:addphotos"),
-		'link_class' => 'elgg-button elgg-button-action tidypics-selectalbum-lightbox',
+		'link_class' => 'elgg-button elgg-button-action tidypics-selectalbum-lightbox elgg-lightbox',
+		'class' => 'elgg-lightbox',
 	]);
 }
 

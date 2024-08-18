@@ -6,7 +6,7 @@
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2
  */
 
-elgg_require_js('tidypics/tidypics');
+elgg_import_esm('tidypics/internaljs/tidypics');
 
 $photo_guid = (int) elgg_extract('guid', $vars);
 elgg_entity_gatekeeper($photo_guid, 'object', TidypicsImage::SUBTYPE);
@@ -35,7 +35,7 @@ $photo->addView();
 
 if (elgg_get_plugin_setting('tagging', 'tidypics')) {
 	elgg_require_css('tidypics/css/jquery-imgareaselect');
-	elgg_require_js('tidypics/tagging');
+	elgg_import_esm('tidypics/internaljs/tagging');
 }
 
 if (!$owner instanceof ElggGroup) {
@@ -47,7 +47,8 @@ if (TidypicsTidypics::tidypics_can_add_new_photos(null, $owner)) {
 		'name' => 'addphotos',
 		'href' => "ajax/view/photos/selectalbum/?owner_guid=" . $owner->getGUID(),
 		'text' => elgg_echo("photos:addphotos"),
-		'link_class' => 'elgg-button elgg-button-action tidypics-selectalbum-lightbox',
+		'link_class' => 'elgg-button elgg-button-action tidypics-selectalbum-lightbox elgg-lightbox',
+		'class' => 'elgg-lightbox',
 	]);
 }
 

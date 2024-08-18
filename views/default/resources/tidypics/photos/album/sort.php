@@ -5,7 +5,7 @@
  * This displays a listing of all the photos so that they can be sorted
  */
 
-elgg_require_js('tidypics/tidypics');
+elgg_import_esm('tidypics/internaljs/tidypics');
 
 $album_guid = (int) elgg_extract('guid', $vars);
 elgg_entity_gatekeeper($album_guid, 'object', TidypicsAlbum::SUBTYPE);

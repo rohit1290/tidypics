@@ -3,7 +3,7 @@
  * Post comment on image river view
  */
 
-elgg_require_js('tidypics/tidypics');
+elgg_import_esm('tidypics/internaljs/tidypics');
 
 $item = elgg_extract('item', $vars);
 if (!($item instanceof ElggRiverItem)) {
@@ -47,12 +47,13 @@ $river_comments_thumbnails = elgg_get_plugin_setting('river_comments_thumbnails'
 if ($river_comments_thumbnails == "show") {
 	$preview_size = elgg_get_plugin_setting('river_thumbnails_size', 'tidypics', 'tiny');
 
-	$vars['attachments'] = elgg_format_element('ul', ['class' => 'tidypics-river-list'], 
+	$vars['attachments'] = elgg_format_element('ul', ['class' => 'tidypics-river-list'],
 		elgg_format_element('li', ['class' => 'tidypics-photo-item'], elgg_view_entity_icon($image, $preview_size, [
 			'href' => 'ajax/view/photos/riverpopup?guid=' . $image->getGUID(),
 			'title' => $image->title,
 			'img_class' => 'tidypics-photo',
-			'link_class' => 'tidypics-river-lightbox',
+			'link_class' => 'tidypics-river-lightbox elgg-lightbox',
+			'class' => 'elgg-lightbox',
 		]))
 	);
 }

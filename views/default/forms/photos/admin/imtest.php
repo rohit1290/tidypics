@@ -3,7 +3,7 @@
  * Test the location of ImageMagick
  */
 
-elgg_require_js('tidypics/imtest');
+elgg_import_esm('tidypics/internaljs/imtest');
 
 /* @var $plugin ElggPlugin */
 $plugin = elgg_extract('entity', $vars);
@@ -20,7 +20,7 @@ echo '<div id="tidypics-im-results"></div>';
 
 $footer = elgg_view_field([
 	'#type' => 'submit',
-	'value' => elgg_echo('submit'),
+	'text' => elgg_echo('submit'),
 ]);
 
 elgg_set_form_footer($footer);

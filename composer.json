@@ -18,11 +18,8 @@
     "support": {
             "issues": "https://github.com/iionly/tidypics/issues"
     },
-    "require": {
-        "composer/installers": ">=1.0.8"
-    },
     "conflict": {
-        "elgg/elgg": "<4.3"
+        "elgg/elgg": "<6.0"
     },
     "suggest": {
         "coldtrick/widget_manager": "With the Widget Manager plugin available the Tidypics plugin offers widgets for the index page (homepage) and group profile pages listing the latest albums and photos.",

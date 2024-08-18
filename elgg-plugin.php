@@ -3,7 +3,7 @@
 return [
 	'plugin' => [
 		'name' => 'Tidypics',
-		'version' => '4.3.1',
+		'version' => '6.0',
 	],
 	'bootstrap' => \TidypicsBootstrap::class,
 	'entities' => [
@@ -340,6 +340,11 @@ return [
 		],
 	],
 	'events' => [
+		'create:before' => [
+			'river' => [
+				"\TidypicsEvents::tidypics_comments_handler" => [],
+			],
+		],
 		'container_permissions_check' => [
 			'object' => [
 				"\TidypicsEvents::tidypics_group_permission_override" => [],
@@ -391,11 +396,6 @@ return [
 				"\TidypicsEvents::tidypics_walled_garden_override" => [],
 			],
 		],
-		'create:before' => [
-			'river' => [
-				"\TidypicsEvents::tidypics_comments_handler" => [],
-			],
-		],
 	],
 	'widgets' => [
 		'album_view' => [
@@ -438,6 +438,7 @@ return [
 			'tidypics/css/plupload/img/' => __DIR__ . '/vendors/plupload/js/jquery.ui.plupload/img',
 			'tidypics/css/jquery-imgareaselect.css' => __DIR__ . '/vendors/jquery.imgareaselect/distfiles/css/imgareaselect-default.css',
 			'tidypics/js/jquery-imgareaselect.js' => __DIR__ . '/vendors/jquery.imgareaselect/jquery.imgareaselect.dev.js',
+			'tidypics/internaljs/' => __DIR__ . '/views/default/js/tidypics/',
 		],
 	],
 	'view_extensions' => [

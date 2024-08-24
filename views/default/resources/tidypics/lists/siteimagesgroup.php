@@ -33,7 +33,7 @@ $result = elgg_list_entities([
 		return $qb->compare('u.container_guid', '=', $group_guid, ELGG_VALUE_INTEGER);
 	},
 	'limit' => $limit,
-	'offset' => $offset,ajax/view
+	'offset' => $offset,
 	'full_view' => false,
 	'list_type' => 'gallery',
 	'list_type_toggle' => false,

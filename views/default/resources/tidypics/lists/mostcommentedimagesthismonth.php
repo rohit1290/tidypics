@@ -15,6 +15,7 @@ $offset = (int) get_input('offset', 0);
 $limit = (int) get_input('limit', 25);
 
 $start = mktime(0, 0, 0, date("m"), 1, date("Y"));
+$end = mktime(0, 0, 0, date("m"), 0, date("Y"));
 
 $result = elgg_list_entities([
 	'type' => 'object',

@@ -21,7 +21,7 @@ $result = elgg_list_entities([
 	'offset' => $offset,
 	'annotation_name' => 'tp_view',
 	'order_by' => [
-		new \Elgg\Database\Clauses\OrderByClause('n_table.time_created', 'DESC'),
+		new \Elgg\Database\Clauses\OrderByClause('a_table.time_created', 'DESC'),
 	],
 	'full_view' => false,
 	'list_type' => 'gallery',

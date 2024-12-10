@@ -16,7 +16,7 @@ if (!$annotation->canEdit()) {
 $entity_guid = $annotation->entity_guid;
 
 $image = get_entity($entity_guid);
-if (!($image instanceof TidypicsImage) {
+if (!($image instanceof TidypicsImage)) {
 	return elgg_error_response(elgg_echo('tidypics:phototagging:error'), REFERRER);
 }
 

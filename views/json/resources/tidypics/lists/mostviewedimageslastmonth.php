@@ -13,7 +13,7 @@ $images = elgg_get_entities([
 	'offset' => $offset,
 	'annotation_name' => 'tp_view',
 	'annotation_sort_by_calculation' => 'count',
-	'annotation_created_time_lower' => $start,
+	'annotation_created_after' => $start,
 	'annotation_created_time_upper' => $end,
 	'order_by' => [
 		new \Elgg\Database\Clauses\OrderByClause('annotation_calculation', 'DESC'),

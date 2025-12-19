@@ -13,8 +13,10 @@ $img_river_view = elgg_get_plugin_setting('img_river_view', 'tidypics');
 $images = elgg_get_entities([
 	'type' => 'object',
 	'subtype' => TidypicsImage::SUBTYPE,
-	'metadata_names' => 'batch',
-	'metadata_values' => $batch,
+	'metadata_name_value_pairs' => [
+		'name' => 'batch',
+		'value' => $batch,
+	],
 	'limit' => false,
 ]);
 
@@ -37,7 +39,7 @@ $batch->container_guid = $album->guid;
 
 if ($batch->save()) {
 	foreach ($images as $image) {
-		$image->addRelationship($batch->getGUID(), 'belongs_to_batch');
+		$image->addRelationship($batch->guid, 'belongs_to_batch');
 	}
 }
 
@@ -46,17 +48,17 @@ if ($img_river_view == "batch" && !($album->new_album)) {
 	elgg_create_river_item([
 		'view' => 'river/object/tidypics_batch/create',
 		'action_type' => 'create',
-		'subject_guid' => $batch->getOwnerGUID(),
-		'object_guid' => $batch->getGUID(),
-		'target_guid' => $album->getGUID(),
+		'subject_guid' => $batch->owner_guid,
+		'object_guid' => $batch->guid,
+		'target_guid' => $album->guid,
 	]);
 } else if ($img_river_view == "1" && !($album->new_album)) {
 	elgg_create_river_item([
 		'view' => 'river/object/tidypics_batch/create_single_image',
 		'action_type' => 'create',
-		'subject_guid' => $batch->getOwnerGUID(),
-		'object_guid' => $batch->getGUID(),
-		'target_guid' => $album->getGUID(),
+		'subject_guid' => $batch->owner_guid,
+		'object_guid' => $batch->guid,
+		'target_guid' => $album->guid,
 	]);
 }
 
@@ -70,9 +72,9 @@ if ($album->new_album) {
 		elgg_create_river_item([
 			'view' => 'river/object/album/create',
 			'action_type' => 'create',
-			'subject_guid' => $album->getOwnerGUID(),
-			'object_guid' => $album->getGUID(),
-			'target_guid' => $album->getGUID(),
+			'subject_guid' => $album->owner_guid,
+			'object_guid' => $album->guid,
+			'target_guid' => $album->guid,
 		]);
 	}
 
@@ -95,8 +97,8 @@ if ($album->new_album) {
 	}
 }
 
-$output = json_encode([
-	'batch_guid' => $batch->getGUID(),
-]);
+$output = [
+	'batch_guid' => $batch->guid,
+];
 
-return elgg_ok_response($output, '');
+return elgg_ok_response(json_encode($output), '');

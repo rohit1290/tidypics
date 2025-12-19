@@ -220,8 +220,8 @@ class TidypicsAlbum extends ElggObject {
 		$guidsString = implode(',', $list);
 
 		$list = elgg_get_entities([
-			'wheres' => function(\Elgg\Database\QueryBuilder $qb, $alias) use ($guidsString) {
- 				return $qb->compare('e.guid', 'IN', $guidsString); // comparison of int with string element of imploded array!
+			'wheres' => function(\Elgg\Database\QueryBuilder $qb, $alias) use ($list) {
+				return $qb->compare("{$alias}.guid", 'IN', $list);
 			},
 			'order_by' => [
 				new \Elgg\Database\Clauses\OrderByClause("FIELD(e.guid, $guidsString)"),
@@ -343,25 +343,17 @@ class TidypicsAlbum extends ElggObject {
 	 * Delete all the images in this album
 	 */
 	protected function deleteImages() {
-		$images_count = elgg_get_entities([
+		$images = elgg_get_entities([
 			'type' => 'object',
 			'subtype' => TidypicsImage::SUBTYPE,
 			'container_guid' => $this->guid,
-			'count' => true,
+			'limit' => false,
+			'batch' => true,
+			'batch_inc_offset' => false,
 		]);
-		if ($images_count > 0) {
-			$images = elgg_get_entities([
-				'type' => 'object',
-				'subtype' => TidypicsImage::SUBTYPE,
-				'container_guid' => $this->guid,
-				'limit' => false,
-				'batch' => true,
-				'batch_inc_offset' => false,
-			]);
-			foreach ($images as $image) {
-				if ($image) {
-					$image->delete();
-				}
+		foreach ($images as $image) {
+			if ($image) {
+				$image->delete();
 			}
 		}
 	}

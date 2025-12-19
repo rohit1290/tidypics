@@ -29,7 +29,7 @@ if (empty($_FILES)) {
 $file = $_FILES[$file_var_name];
 
 $image = new TidypicsImage();
-$image->container_guid = $album->getGUID();
+$image->container_guid = $album->guid;
 $image->setMimeType($file['type']);
 $image->access_id = $album->access_id;
 $image->batch = $batch;
@@ -53,11 +53,11 @@ if ($result) {
 		elgg_create_river_item([
 			'view' => 'river/object/image/create',
 			'action_type' => 'create',
-			'subject_guid' => $image->getOwnerGUID(),
-			'object_guid' => $image->getGUID(),
-			'target_guid' => $album->getGUID(),
+			'subject_guid' => $image->owner_guid,
+			'object_guid' => $image->guid,
+			'target_guid' => $album->guid,
 		]);
 	}
 }
 
-exit;
+echo elgg_ok_response('');

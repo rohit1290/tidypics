@@ -121,19 +121,20 @@ class TidypicsImage extends ElggFile {
 	 * @return string
 	 */
 	public function getIconURL(string|array $params = []): string {
-		$size = 'small';
-		if (is_string($params)) {
-			$size = $params;
-		} else if (is_array($params)) {
-			if (isset($params['size'])) {
-				$size = $params['size'];
-			}
+		if (is_array($params)) {
+			$params = array_merge(['size' => 'small'], $params);
+		} else {
+			$params = ['size' => $params];
 		}
-		
-		if ($size == 'tiny') {
-			$size = 'thumb';
+
+		if ($params['size'] == 'tiny') {
+			$params['size'] = 'thumb';
 		}
-		return elgg_normalize_url("photos/thumbnail/$this->guid/$size/");
+
+		return elgg_normalize_url(elgg_http_add_url_query_elements('photos/thumbnail', [
+			'guid' => $this->guid,
+			'size' => $params['size'],
+		]));
 	}
 
 	/**
@@ -148,19 +149,19 @@ class TidypicsImage extends ElggFile {
 		}
 
 		$count = elgg_get_annotations([
-			'guid' => $this->getGUID(),
+			'guid' => $this->guid,
 			'annotation_name' => 'tp_view',
 			'count' => true,
 		]);
 		if ($count > 0) {
 			$views = elgg_get_annotations([
-				'guid' => $this->getGUID(),
+				'guid' => $this->guid,
 				'annotation_name' => 'tp_view',
 				'limit' => false,
 				'batch' => true,
 			]);
 
-			if ($this->getOwnerGUID() == $viewer_guid) {
+			if ($this->owner_guid == $viewer_guid) {
 				// get unique number of viewers
 				$diff_viewers = [];
 				foreach ($views as $view) {
@@ -529,7 +530,7 @@ class TidypicsImage extends ElggFile {
 		}
 
 		$file = new ElggFile();
-		$file->owner_guid = $this->getOwnerGUID();
+		$file->owner_guid = $this->owner_guid;
 		$file->setFilename($thumb);
 		return $file->grabFile();
 	}
@@ -554,7 +555,7 @@ class TidypicsImage extends ElggFile {
 	 */
 	public function isPhotoTagged() {
 		$num_tags = elgg_get_annotations([
-			'guid' => $this->getGUID(),
+			'guid' => $this->guid,
 			'type' => 'object',
 			'subtype' => TidypicsImage::SUBTYPE,
 			'annotation_name' => 'phototag',
@@ -575,13 +576,17 @@ class TidypicsImage extends ElggFile {
 	public function getPhotoTags() {
 		$tags = [];
 		$annotations = elgg_get_annotations([
-			'guid' => $this->getGUID(),
+			'guid' => $this->guid,
 			'annotation_name' => 'phototag',
 		]);
 		foreach ($annotations as $annotation) {
-			$tag = unserialize($annotation->value);
-			$tag->annotation_id = $annotation->id;
-			$tags[] = $tag;
+			try {
+				$tag = unserialize($annotation->value);
+				$tag->annotation_id = $annotation->id;
+				$tags[] = $tag;
+			} catch (Exception $e) {
+				// do nothing
+			}
 		}
 
 		return $tags;
@@ -601,21 +606,21 @@ class TidypicsImage extends ElggFile {
 		//delete standard thumbnail image
 		if ($thumbnail) {
 			$delfile = new ElggFile();
-			$delfile->owner_guid = $this->getOwnerGUID();
+			$delfile->owner_guid = $this->owner_guid;
 			$delfile->setFilename($thumbnail);
 			$delfile->delete();
 		}
 		//delete small thumbnail image
 		if ($smallthumb) {
 			$delfile = new ElggFile();
-			$delfile->owner_guid = $this->getOwnerGUID();
+			$delfile->owner_guid = $this->owner_guid;
 			$delfile->setFilename($smallthumb);
 			$delfile->delete();
 		}
 		//delete large thumbnail image
 		if ($largethumb) {
 			$delfile = new ElggFile();
-			$delfile->owner_guid = $this->getOwnerGUID();
+			$delfile->owner_guid = $this->owner_guid;
 			$delfile->setFilename($largethumb);
 			$delfile->delete();
 		}

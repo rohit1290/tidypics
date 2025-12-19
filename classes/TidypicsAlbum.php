@@ -239,6 +239,10 @@ class TidypicsAlbum extends ElggObject {
 	 * @return bool
 	 */
 	public function setImageList($list) {
+		if (is_string($list)) {
+			$list = explode(',', $list);
+		}
+
 		// validate data
 		foreach ($list as $guid) {
 			if (!filter_var($guid, FILTER_VALIDATE_INT)) {

@@ -259,6 +259,7 @@ class TidypicsAlbum extends ElggObject {
 	 */
 	public function prependImageList($list) {
 		$currentList = $this->getImageList();
+		$list = array_reverse((array)$list);
 		$list = array_merge($list, $currentList);
 		return $this->setImageList($list);
 	}

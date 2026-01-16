@@ -25,7 +25,7 @@ $result = elgg_list_entities([
 	'annotation_name' => 'tp_view',
 	'annotation_sort_by_calculation' => 'count',
 	'annotation_created_after' => $start,
-	'annotation_created_time_upper' => $end,
+	'annotation_created_before' => $end,
 	'order_by' => [
 		new \Elgg\Database\Clauses\OrderByClause('annotation_calculation', 'DESC'),
 	],

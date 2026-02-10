@@ -95,8 +95,6 @@ if ($album->new_album) {
 	}
 }
 
-$output = json_encode([
+return elgg_ok_response([
 	'batch_guid' => $batch->getGUID(),
-]);
-
-return elgg_ok_response($output, '');
+], '');
